@@ -6,7 +6,26 @@ class AdvancedSpider(scrapy.Spider):
     name = "advanced"
 
     # === TARGET URLS ===
-    start_urls = ["https://example.com"]
+    start_urls = ["https://id.jobstreet.com/"]
+
+    custom_settings = {
+        "PLAYWRIGHT_LAUNCH_OPTIONS": {
+            "headless": True,
+            "args": [
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-web-security",
+                "--ignore-certificate-errors",
+            ],
+        },
+        "PLAYWRIGHT_CONTEXT_ARGS": {
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "locale": "en-US",
+            "timezone_id": "Asia/Jakarta",
+            "viewport": {"width": 1920, "height": 1080},
+        },
+    }
 
     def start_requests(self):
         for url in self.start_urls:
@@ -18,10 +37,10 @@ class AdvancedSpider(scrapy.Spider):
                     "playwright_include_page": True,
                     "playwright_page_methods": [
                         # Tunggu elemen muncul (bypass lazy-load)
-                        PageMethod("wait_for_selector", "body", timeout=10000),
+                        PageMethod("wait_for_selector", "body", timeout=60000),
                         # Scroll ke bawah (trigger infinite scroll)
                         PageMethod("evaluate", "window.scrollTo(0, document.body.scrollHeight)"),
-                        PageMethod("wait_for_timeout", 2000),
+                        PageMethod("wait_for_timeout", 10000),
                     ],
                 },
                 errback=self.errback_close_page,

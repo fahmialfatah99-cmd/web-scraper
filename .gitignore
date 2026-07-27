@@ -1,10 +1,1 @@
-```gitignore
-# Python cache files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Original rules preserved
-*.log
-```
+Nothing should be ignored based on the provided file changes, as they only include source code files (.py files) without any build artifacts, dependencies, or temporary files.
