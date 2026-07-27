@@ -28,17 +28,24 @@ ROTATING_PROXY_LIST = [
 ]
 
 # === ANTI-BLOCKING ===
-CONCURRENT_REQUESTS = 4
-DOWNLOAD_DELAY = 2
+CONCURRENT_REQUESTS = 1
+DOWNLOAD_DELAY = 3
 RANDOMIZE_DOWNLOAD_DELAY = True
 COOKIES_ENABLED = True
 ROBOTSTXT_OBEY = False
-RETRY_TIMES = 3
+RETRY_TIMES = 5
 RETRY_HTTP_CODES = [403, 429, 500, 502, 503, 504]
 
+# Disable default headers that might reveal bot
+DEFAULT_REQUEST_HEADERS = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
+}
+
 DOWNLOADER_MIDDLEWARES = {
-    "middlewares.StealthMiddleware": 400,
-    "middlewares.ProxyMiddleware": 410,
+    "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware": None,
+    "middlewares.StealthMiddleware": 540,
+    "middlewares.ProxyMiddleware": 550,
 }
 
 ITEM_PIPELINES = {

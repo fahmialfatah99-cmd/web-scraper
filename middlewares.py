@@ -10,10 +10,14 @@ class StealthMiddleware:
         self.ua = UserAgent()
 
     def process_request(self, request, spider):
-        request.headers["User-Agent"] = self.ua.random
-        request.headers["Accept-Language"] = "en-US,en;q=0.9"
+        # Set User-Agent yang valid - gunakan browser modern
+        request.headers["User-Agent"] = (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        )
+        request.headers["Accept-Language"] = "en-US,en;q=0.9,id;q=0.8"
         request.headers["Accept"] = (
-            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
         )
         request.headers["sec-ch-ua"] = (
             '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"'
@@ -23,6 +27,16 @@ class StealthMiddleware:
         request.headers["sec-fetch-dest"] = "document"
         request.headers["sec-fetch-mode"] = "navigate"
         request.headers["sec-fetch-user"] = "?1"
+        request.headers["sec-fetch-site"] = "none"
+        request.headers["upgrade-insecure-requests"] = "1"
+        
+        # Hapus header yang mencurigakan
+        request.headers.pop("Scrapy", None)
+        request.headers.pop("scrapy", None)
+        
+        # Set referer jika belum ada
+        if "Referer" not in request.headers:
+            request.headers["Referer"] = "https://www.google.com/"
 
 
 class ProxyMiddleware:
