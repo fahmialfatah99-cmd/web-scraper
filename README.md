@@ -19,6 +19,15 @@ A powerful web scraping framework built with **Scrapy** and **Playwright** for h
 ## Installation
 
 ```bash
+# Create and activate virtual environment (recommended)
+python -m venv venv
+
+# On Windows:
+venv\Scripts\activate
+
+# On macOS/Linux:
+source venv/bin/activate
+
 # Install Python dependencies
 pip install -r requirements.txt
 
