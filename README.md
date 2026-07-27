@@ -18,21 +18,65 @@ A powerful web scraping framework built with **Scrapy** and **Playwright** for h
 
 ## Installation
 
+### Step 1: Create Virtual Environment
+
+Choose the appropriate commands for your operating system:
+
+#### **Windows**
+
 ```bash
-# Create and activate virtual environment (recommended)
+# Create virtual environment
 python -m venv venv
 
-# On Windows:
+# Activate virtual environment
 venv\Scripts\activate
+```
 
-# On macOS/Linux:
+#### **macOS**
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
 source venv/bin/activate
+```
 
+#### **Linux**
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate
+```
+
+> **Note:** On some Linux distributions, you may need to install `python3-venv` first:
+> - Ubuntu/Debian: `sudo apt-get install python3-venv`
+> - Fedora: `sudo dnf install python3-venv`
+> - Arch: `sudo pacman -S python-venv`
+
+### Step 2: Install Dependencies
+
+After activating the virtual environment (you should see `(venv)` in your terminal):
+
+```bash
 # Install Python dependencies
 pip install -r requirements.txt
 
 # Install Playwright browser (Chromium)
 playwright install chromium
+```
+
+### Step 3: Verify Installation
+
+```bash
+# Check if Scrapy is installed
+scrapy --version
+
+# Check if Playwright is working
+python -c "from playwright.sync_api import sync_playwright; print('Playwright OK')"
 ```
 
 ## Project Structure
